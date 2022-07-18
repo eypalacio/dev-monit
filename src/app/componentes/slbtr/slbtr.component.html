@@ -1,1 +1,105 @@
-<p>slbtr works!</p>
+<!-- <h1 class="display-4">conteoSLBTR</h1> -->
+<div class="action-panel py-2">
+    <button class="btn-main" (click)="btnRefrescar()">
+        <i class="bi bi-arrow-clockwise"></i>Refrescar
+    </button>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <!-- <th scope="col">Fecha</th> -->
+                <th scope="col">Hora</th>
+                <th scope="col">MT_102</th>
+                <th scope="col">T_102</th>
+                <th scope="col">MT_103</th>
+                <th scope="col">MT_104</th>
+                <th scope="col">T_104</th>
+                <th scope="col">MT_190</th>
+                <th scope="col">MT_206</th>
+                <th scope="col">T_206</th>
+                <th scope="col">MT_900</th>
+                <th scope="col">MT_910</th>
+                <th scope="col">MT_950</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of mensajesSLBTR">
+                <td>{{item.hora}}</td>
+                <td>{{item.MT_102}}</td>
+                <td>{{item.transf_102}}</td>
+                <td>{{item.Mt_103}}</td>
+                <td>{{item.MT_104}}</td>
+                <td>{{item.transf_104}}</td>
+                <td>{{item.MT_190}}</td>
+                <td>{{item.MT_206}}</td>
+                <td>{{item.transf_206}}</td>
+                <td>{{item.MT_900}}</td>
+                <td>{{item.MT_910}}</td>
+                <td>{{item.MT_950}}</td>
+            </tr>
+            
+            <tr *ngIf="!buscando && mensajesSLBTR.length == 0 && error.length==0">
+                <td colspan="12">
+                    <div class="mensaje">
+                        <img *ngIf="!buscando && mensajesSLBTR.length == 0" src="assets/img/undraw_new_message.svg"
+                            class="img-fluid w-25">
+                        <h1 *ngIf="!buscando && mensajesSLBTR.length == 0" class="h5 text-muted">{{message}}
+                        </h1>
+                    </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="buscando && mensajesSLBTR.length == 0">
+                <td colspan="12">
+                    <div class="mensaje">
+                        <img *ngIf="buscando" src="assets/img/undraw_file_searching.svg" class="img-fluid w-25">
+                        <h1 [hidden]="!buscando" class="h5 text-muted">Buscando...</h1>
+                    </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="!buscando && mensajesSLBTR.length == 0 && error.length > 0">
+                <td colspan="12">
+                    <div class="mensaje">
+                        <img *ngIf="!buscando && mensajesSLBTR.length == 0" src="assets/img/undraw_warning.svg"
+                            class="img-fluid w-25">
+                        <h1 *ngIf="!buscando && mensajesSLBTR.length == 0" class="h5 text-danger">{{error}}
+                        </h1>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr  class="table-dark">
+                <th scope="col">All</th>
+                <th scope="col">MT_102</th>
+                <th scope="col">T_102</th>
+                <th scope="col">MT_103</th>
+                <th scope="col">MT_104</th>
+                <th scope="col">T_104</th>
+                <th scope="col">MT_190</th>
+                <th scope="col">MT_206</th>
+                <th scope="col">T_206</th>
+                <th scope="col">MT_900</th>
+                <th scope="col">MT_910</th>
+                <th scope="col">MT_950</th>
+            </tr>
+            <tr *ngFor="let item of conteoSLBTR">
+                <td>Totales</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_102, '102')}">{{item.MT_102}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.Transf_102, '102')}">{{item.Transf_102}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_103, '103')}">{{item.MT_103}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_104, '104')}">{{item.MT_104}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.Transf_104, '104')}">{{item.Transf_104}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_190, '190')}">{{item.MT_190}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_206, '206')}">{{item.MT_206}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.Transf_206, '206')}">{{item.Transf_206}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_900, '900')}">{{item.MT_900}}</td>
+                <td [ngClass]="{'text-danger': comparar(item.MT_910, '910')}">{{item.MT_910}}</td>
+                <td>{{item.MT_950}}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>

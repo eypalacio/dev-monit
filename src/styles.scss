@@ -1,1 +1,60 @@
+:root{
+    --generico: #00658d;
+    --disabled: hsl(0, 0%, 34%);
+    --btn_hover: #013e57;
+    --btn_disabled: hsla(0, 0%, 34%, 0.555);
+    --mensaje: hsl(204, 4%, 78%);
+    --tab_header:var(--generico);
+    
+  }
 /* You can add global styles to this file, and also import other style files */
+table{
+    font-size: 60%;
+}
+.mensaje{ //para centrar las imagenes de... no existen mensajes && buscando...
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    margin-top: 6%;
+}
+
+.bg-color{
+    background-color: var(--generico);
+}
+
+.btn-main{
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    padding: 5px;
+    font-size: 80%;
+    background-color: var(--generico);
+    transition: all .3s ease-in-out;
+    color: white;
+    border-radius: .3em;
+     &:hover{
+        transition: all .3s ease-in-out;
+        background-color: var(--btn_hover);
+     } 
+     &:disabled{
+        cursor: not-allowed;
+        background-color: var(--btn_disabled);
+    }
+}
+
+.in {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    /* color: hsl(0, 0%, 34%); */
+    border-radius: 0.5em;
+    font-size: 60%;
+    height: 35px;
+}
+

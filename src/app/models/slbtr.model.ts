@@ -2,16 +2,20 @@ export interface Slbtr {
     //slbtr
     fecha: any;
     hora: any;
-    mt_102: number;
-    mt_103: number;
-    mt_104: number;
-    mt_190: number;
-    mt_206: number;
-    mt_299: number;
-    mt_900: number;
-    mt_910: number;
-    mt_950: number;
+    MT_102: number;
+    Mt_103: number;
+    MT_103: number;
+    MT_104: number;
+    MT_190: number;
+    MT_206: number;
+    MT_299: number;
+    MT_900: number;
+    MT_910: number;
+    MT_950: number;
     transf_102: number;
     transf_104: number;
     transf_206: number;
+    Transf_102: number;
+    Transf_104: number;
+    Transf_206: number;
 }

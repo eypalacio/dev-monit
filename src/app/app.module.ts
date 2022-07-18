@@ -17,6 +17,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { NgxWebstorageModule } from 'ngx-webstorage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-
-    // NgxWebstorageModule.forRoot(),
+    HttpClientModule,
+    NgxWebstorageModule.forRoot(),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

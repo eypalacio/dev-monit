@@ -1,9 +1,106 @@
-<div class="table-responsive-lg">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-    </table>
+<!-- <h1 class="display-4">conteoT24</h1> -->
+<div class="row my-2">
+    <!-- tipo mensaje -->
+    <div class="col-sm-3">
+        <select class="in border" name="tipoMsje" id="tipoMsje" [(ngModel)]="tipoMsje" (ngModelChange)="search()">
+            <option value="-1" selected disabled hidden>Tipo</option>
+            <option *ngFor="let tipoMensaje of tipoMensajeList" [value]="tipoMensaje">{{tipoMensaje}}</option>
+        </select>
+    </div>
+
+    <!--hora  -->
+    <div class="col-sm-3">
+        <select name="hora" id="hora" class="in border" [(ngModel)]="hora" (ngModelChange)="search()">
+            <option value="" selected disabled>Hora</option>
+            <option *ngFor="let var_hora of horas" [value]="var_hora.hora">{{var_hora.hora}}</option>
+        </select>
+    </div>
+
+    <!-- fecha -->
+    <div class="col-sm-3">
+        <input type="date" class="in border" id="date" [(ngModel)]="fecha" (ngModelChange)="search();selectHoras()">
+    </div>
+
+    <!-- borrar
+    <div class="col-sm-1">
+        
+    </div> -->
+
+    <!-- ejecutar -->
+    <div class="col-sm-3 d-flex justify-content-center align-item-center">
+        <button class="btn-main mx-1" [disabled]="(fecha=='' || fecha == undefined) && tipoMsje==-1 && hora==''"
+            (click)="fecha='';tipoMsje=-1;hora='';loadMensaje()">
+            <i class="bi bi-trash3"></i>
+        </button>
+        <button class="btn-main" (click)="execETL()">
+            <i class="bi bi-gear-wide-connected"></i>run ETL
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="bg-color text-white" style="border: 2px solid var(--generico);">
+                <tr>
+                    <th scope="col" class="border-0">Tipo Mensaje</th>
+                    <th scope="col" class="border-0">Total Recibido</th>
+                    <th scope="col" class="border-0">FT Auts</th>
+                    <th scope="col" class="border-0">FT INAU</th>
+                    <th scope="col" class="border-0">Remesas Aceptadas</th>
+                    <th scope="col" class="border-0">Total Operaciones</th>
+                    <th scope="col" class="border-0">Hora</th>
+                    <th scope="col" class="border-0">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let item of mensajesConteo">
+                    <td>{{item.tipoM}}</td>
+                    <td [ngClass]="{'text-danger':compararRec(item)}">{{item.totalRecibido==0?'-':item.totalRecibido}}
+                    </td>
+                    <td>{{item.ftAutorizadas==0?'-':item.ftAutorizadas}}</td>
+                    <td>{{item.ftINAU==0?'-':item.ftINAU}}</td>
+                    <td>{{item.tipoM==900||item.tipoM==103||item.tipoM==190||item.tipoM==910?'':item.remesasAceptadas==0?'-':item.remesasAceptadas}}
+                    </td>
+                    <td [ngClass]="{'text-danger':compararOpe(item)}">
+                        {{item.tipoM==900||item.tipoM==103||item.tipoM==190||item.tipoM==910?'':item.totalOpe==0?'-':item.totalOpe}}
+                    </td>
+                    <td>{{item.hora}}</td>
+                    <td>{{item.fecha}}</td>
+                </tr>
+
+                <tr *ngIf="!buscando && mensajesConteo.length == 0 && error.length==0">
+                    <td colspan="8">
+                        <div class="mensaje">
+                            <img *ngIf="!buscando && mensajesConteo.length == 0" src="assets/img/undraw_new_message.svg"
+                                class="img-fluid w-25">
+                            <h1 *ngIf="!buscando && mensajesConteo.length == 0" class="h5 text-muted">{{message}}
+                            </h1>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="buscando && mensajesConteo.length == 0">
+                    <td colspan="8">
+                        <div class="mensaje">
+                            <img *ngIf="buscando" src="assets/img/undraw_file_searching.svg" class="img-fluid w-25">
+                            <h1 [hidden]="!buscando" class="h5 text-muted">Buscando...</h1>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="!buscando && mensajesConteo.length == 0 && error.length > 0">
+                    <td colspan="8">
+                        <div class="mensaje">
+                            <img *ngIf="!buscando && mensajesConteo.length == 0" src="assets/img/undraw_warning.svg"
+                                class="img-fluid w-25">
+                            <h1 *ngIf="!buscando && mensajesConteo.length == 0" class="h5 text-danger">{{error}}
+                            </h1>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
 </div>
